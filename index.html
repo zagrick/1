@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Spec Export</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="wrapper">
+        <div class="container">
+          <aside class="aside"></aside>
+          <main class="main">
+            <div class="main__body">
+              <h1>Рабочий стол руководителя</h1>
+              <div class="main__btns">
+                <button>Dashboard</button>
+                <button>Team line up</button>
+              </div>
+              <div class="main__griphics">
+                <div class="main__gs">
+                  <div class="main__d">
+                    <div>График отпусков</div>
+                    <div>2019</div>
+                  </div>
+                  <ul>
+                    <li>Фамилия, Имя</li>
+                    <li>дней</li>
+                    <li v-for="(month, index) in months">
+                      {{ month }}
+                    </li>
+                  </ul>
+                </div>
+                <ul v-for="(user, index) in users" :key="user.id">
+                  <li>
+                    <img :src="user.path" :alt="user.path" />
+                    {{ user.name }}<br />
+                    {{ user.surname }}
+                  </li>
+                  <li>
+                    {{ count_days }}
+                  </li>
+                  <li v-for="(day, index) in days" class="main__segments">
+                    <template v-for="i in 6" v-if="day[i] > 0">
+                      <div
+                        class="main__segment"
+                        :style="{height:day[i]*2+'px'}"
+                      >
+                        <template v-for="(holiday, index) in holidays">
+                          <a
+                            href="#"
+                            v-for="j in i"
+                            v-if="i == 4 || i == 5"
+                            :style="{position:'absolute',width:'8px',height:holiday[i]*2+'px',width:'8px',background:'#1EBEB4',margin:'0 1px'}"
+                          ></a>
+                        </template>
+                        <template v-for="(work, index) in works">
+                          <a
+                            href="#"
+                            v-for="j in i"
+                            v-if="i == 3"
+                            :style="{position:'absolute',width:'8px',height:work[i]*2+'px',width:'8px',background:'#F16953',margin:'0 1px'}"
+                          ></a>
+                        </template>
+                        <template v-for="(not_holiday, index) in not_holidays">
+                          <a
+                            href="#"
+                            v-for="j in i"
+                            v-if="i == 2"
+                            :style="{position:'absolute',width:'8px',height:not_holiday[i]*2+'px',width:'8px',background:'#FCC659',margin:'0 1px'}"
+                          ></a>
+                        </template>
+                      </div>
+                    </template>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </main>
+          <aside class="aside-right"></aside>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          months: [
+            "Янв",
+            "Фев",
+            "Мар",
+            "Апр",
+            "Май",
+            "Июн",
+            "Июл",
+            "Авг",
+            "Сен",
+            "Окт",
+            "Ноя",
+            "Дек"
+          ],
+          days: [
+            ["", 6, 7, 7, 7, 4, 0],
+            ["", 3, 7, 7, 7, 4, 0],
+            ["", 3, 7, 7, 7, 7, 0],
+            ["", 7, 7, 7, 7, 2, 0],
+            ["", 5, 7, 7, 7, 5, 0],
+            ["", 2, 7, 7, 7, 7, 0],
+            ["", 7, 7, 7, 7, 3, 0],
+            ["", 4, 7, 7, 7, 6, 0],
+            ["", 1, 7, 7, 7, 7, 1],
+            ["", 6, 7, 7, 7, 4, 0],
+            ["", 3, 7, 7, 7, 6, 0],
+            ["", 1, 7, 7, 7, 7, 2]
+          ],
+          count_days: "14/28",
+          users: [
+            { id: 1, name: "Иван", surname: "Иванов", path: "/img/photo.png" },
+            {
+              id: 2,
+              name: "Катерина",
+              surname: "Иванова",
+              path: "/img/photo-2.png"
+            },
+            { id: 3, name: "Иван", surname: "Иванов", path: "/img/photo.png" },
+            { id: 4, name: "Иван", surname: "Иванов", path: "/img/photo.png" },
+            { id: 5, name: "Иван", surname: "Иванов", path: "/img/photo.png" }
+          ],
+          holidays: [["", 1, 2, 2, 5, 4, 0]],
+          works: [["", 3, 5, 7, 0, 0, 0]],
+          not_holidays: [["", 0, 5, 7, 0, 0, 0]]
+        },
+        methods: {}
+      });
+    </script>
+  </body>
+</html>
